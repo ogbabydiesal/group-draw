@@ -28,6 +28,11 @@ io.on('connection', (socket) => {
     io.emit('freqResponse', arg);
   });
 
+  socket.on("circle", (arg) => {
+    //console.log(arg);
+    io.emit('receiveCircle', arg);
+  });
+
   //receives the name emitter from Client
   socket.on("name", (arg) => {
     //console.log(arg);

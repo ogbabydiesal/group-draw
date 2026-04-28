@@ -17,6 +17,15 @@ socket.on('freqResponse', (data) => {
     oscillator.freq(data[1], 0.250);
 });
 
+socket.on('receiveCircle', (data) => {
+    console.log(data);
+    const splitData = data.split(' ');
+    const x = splitData[0];
+    const y = splitData[1];
+    fill(255, 0, 0, 100);
+    circle(x, y, 10);
+});
+
 //log new users as they come into the room
 socket.on('response', (data) => {
     console.log(data);
@@ -29,10 +38,14 @@ socket.on('trigger', (data) => {
 });
 
 function submit() {
-    socket.emit("name", nameField.value());
+    socket.emit("circle", nameField.value());
     freqState.html('idle...');
     oscillator.start();
     playing = true;
+}
+
+function networkedCircle(x, y) {
+    socket.emit("circle", `${x} ${y}`);
 }
 
 async function setup() {
@@ -110,20 +123,22 @@ async function setup() {
     attribution.position(10, 35);
     attribution.class('attribution');
     //create a p5 sound oscillator
-    oscillator = new p5.Oscillator(440, "square");
-    oscillator.amp(0.33);
-    del = new p5.Delay(0.210, 0.66);
-    oscillator.disconnect();
-    oscillator.connect(del);
+    frameRate(10);
 }
+
+function draw() {
+    circle(mouseX, mouseY, 10);
+    networkedCircle(mouseX, mouseY);
+}
+
 
 function play() {
     if (!playing) {
-        oscillator.start();
+        
         playing = true;
         buttonEl.html('stop');
     } else {
-        oscillator.stop();
+        
         playing = false;
         buttonEl.html('play');
     }
