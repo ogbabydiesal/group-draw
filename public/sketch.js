@@ -95,7 +95,7 @@ async function setup() {
     inputStuff.child(freqInput);
     inputStuff.child(sendButton);
     //create title
-    title = createElement('h1', 'frequency links');
+    title = createElement('h1', 'group-draw');
     title.parent('main');
     title.position(10, -10);
     title.class('title');

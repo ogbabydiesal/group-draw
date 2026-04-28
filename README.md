@@ -1,5 +1,5 @@
-# frequency-links
+# group-draw
 
-a multi-user audio work
+a multi-user drawing work
 
-uses socket.io to allow multiple participants to control the parameters of the same oscillator in p5.js and p5.sound.js.
+uses socket.io to allow multiple participants to collaboratively draw in a p5.js.
